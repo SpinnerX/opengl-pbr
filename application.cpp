@@ -378,6 +378,9 @@ int main()
     glfwGetFramebufferSize(window, &scrWidth, &scrHeight);
     glViewport(0, 0, scrWidth, scrHeight);
 
+    // Model gun_3d_model("Cerberus_by_Andrew_Maximov/Cerberus.tbscene");
+    Model gun_3d_model("resources/objects/backpack/backpack.obj");
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -400,6 +403,7 @@ int main()
         // render scene, supplying the convoluted irradiance map to the final shader.
         // ------------------------------------------------------------------------------------------
         pbrShader.use();
+        
         glm::mat4 model = glm::mat4(1.0f);
         glm::mat4 view = camera.GetViewMatrix();
         pbrShader.setMat4("view", view);
@@ -502,6 +506,8 @@ int main()
         pbrShader.setMat4("model", model);
         pbrShader.setMat3("normalMatrix", glm::transpose(glm::inverse(glm::mat3(model))));
         renderSphere();
+
+        gun_3d_model.Draw(pbrShader);
 
         // render light source (simply re-render sphere at light positions)
         // this looks a bit off as we use the same shader, but it'll make their positions obvious and 
