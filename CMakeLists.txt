@@ -9,8 +9,14 @@ build_application(
     PACKAGES
     glfw3
     fmt
+    glad
+    stb
+    assimp
 
     LINK_PACKAGES
     glfw
     fmt::fmt
+    glad::glad
+    stb::stb
+    assimp::assimp
 )

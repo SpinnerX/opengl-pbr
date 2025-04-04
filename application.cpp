@@ -1,14 +1,19 @@
-#include <glad/glad.h>
+// #include <glad/glad.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include "glad/glad.h"
+// #include <glad.h>
 #include <GLFW/glfw3.h>
+#include <filesystem>
 #include <stb_image.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
+#include <string>
 #include "shader.hpp"
 #include "camera.hpp"
 #include "model.hpp"
+#include <filesystem>
 
 #include <iostream>
 
@@ -84,12 +89,12 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader pbrShader("shaders/2.2.2.pbr.vs", "shaders/2.2.2.pbr.fs");
-    Shader equirectangularToCubemapShader("shaders/2.2.2.cubemap.vs", "shaders/2.2.2.equirectangular_to_cubemap.fs");
-    Shader irradianceShader("shaders/2.2.2.cubemap.vs", "shaders/2.2.2.irradiance_convolution.fs");
-    Shader prefilterShader("shaders/2.2.2.cubemap.vs", "shaders/2.2.2.prefilter.fs");
-    Shader brdfShader("shaders/2.2.2.brdf.vs", "shaders/2.2.2.brdf.fs");
-    Shader backgroundShader("shaders/2.2.2.background.vs", "shaders/2.2.2.background.fs");
+    Shader pbrShader("shaders/2.2.1.pbr.vs", "shaders/2.2.1.pbr.fs");
+    Shader equirectangularToCubemapShader("shaders/2.2.1.cubemap.vs", "shaders/2.2.1.equirectangular_to_cubemap.fs");
+    Shader irradianceShader("shaders/2.2.1.cubemap.vs", "shaders/2.2.1.irradiance_convolution.fs");
+    Shader prefilterShader("shaders/2.2.1.cubemap.vs", "shaders/2.2.1.prefilter.fs");
+    Shader brdfShader("shaders/2.2.1.brdf.vs", "shaders/2.2.1.brdf.fs");
+    Shader backgroundShader("shaders/2.2.1.background.vs", "shaders/2.2.1.background.fs");
 
     pbrShader.use();
     pbrShader.setInt("irradianceMap", 0);
@@ -107,39 +112,39 @@ int main()
     // load PBR material textures
     // --------------------------
     // rusted iron
-    unsigned int ironAlbedoMap = loadTexture(FileSystem::getPath("resources/textures/pbr/rusted_iron/albedo.png").c_str());
-    unsigned int ironNormalMap = loadTexture(FileSystem::getPath("resources/textures/pbr/rusted_iron/normal.png").c_str());
-    unsigned int ironMetallicMap = loadTexture(FileSystem::getPath("resources/textures/pbr/rusted_iron/metallic.png").c_str());
-    unsigned int ironRoughnessMap = loadTexture(FileSystem::getPath("resources/textures/pbr/rusted_iron/roughness.png").c_str());
-    unsigned int ironAOMap = loadTexture(FileSystem::getPath("resources/textures/pbr/rusted_iron/ao.png").c_str());
+    unsigned int ironAlbedoMap = loadTexture(std::filesystem::path("resources/textures/pbr/rusted_iron/albedo.png").c_str());
+    unsigned int ironNormalMap = loadTexture(std::filesystem::path("resources/textures/pbr/rusted_iron/normal.png").c_str());
+    unsigned int ironMetallicMap = loadTexture(std::filesystem::path("resources/textures/pbr/rusted_iron/metallic.png").c_str());
+    unsigned int ironRoughnessMap = loadTexture(std::filesystem::path("resources/textures/pbr/rusted_iron/roughness.png").c_str());
+    unsigned int ironAOMap = loadTexture(std::filesystem::path("resources/textures/pbr/rusted_iron/ao.png").c_str());
 
     // gold
-    unsigned int goldAlbedoMap = loadTexture(FileSystem::getPath("resources/textures/pbr/gold/albedo.png").c_str());
-    unsigned int goldNormalMap = loadTexture(FileSystem::getPath("resources/textures/pbr/gold/normal.png").c_str());
-    unsigned int goldMetallicMap = loadTexture(FileSystem::getPath("resources/textures/pbr/gold/metallic.png").c_str());
-    unsigned int goldRoughnessMap = loadTexture(FileSystem::getPath("resources/textures/pbr/gold/roughness.png").c_str());
-    unsigned int goldAOMap = loadTexture(FileSystem::getPath("resources/textures/pbr/gold/ao.png").c_str());
+    unsigned int goldAlbedoMap = loadTexture(std::filesystem::path("resources/textures/pbr/gold/albedo.png").c_str());
+    unsigned int goldNormalMap = loadTexture(std::filesystem::path("resources/textures/pbr/gold/normal.png").c_str());
+    unsigned int goldMetallicMap = loadTexture(std::filesystem::path("resources/textures/pbr/gold/metallic.png").c_str());
+    unsigned int goldRoughnessMap = loadTexture(std::filesystem::path("resources/textures/pbr/gold/roughness.png").c_str());
+    unsigned int goldAOMap = loadTexture(std::filesystem::path("resources/textures/pbr/gold/ao.png").c_str());
 
     // grass
-    unsigned int grassAlbedoMap = loadTexture(FileSystem::getPath("resources/textures/pbr/grass/albedo.png").c_str());
-    unsigned int grassNormalMap = loadTexture(FileSystem::getPath("resources/textures/pbr/grass/normal.png").c_str());
-    unsigned int grassMetallicMap = loadTexture(FileSystem::getPath("resources/textures/pbr/grass/metallic.png").c_str());
-    unsigned int grassRoughnessMap = loadTexture(FileSystem::getPath("resources/textures/pbr/grass/roughness.png").c_str());
-    unsigned int grassAOMap = loadTexture(FileSystem::getPath("resources/textures/pbr/grass/ao.png").c_str());
+    unsigned int grassAlbedoMap = loadTexture(std::filesystem::path("resources/textures/pbr/grass/albedo.png").c_str());
+    unsigned int grassNormalMap = loadTexture(std::filesystem::path("resources/textures/pbr/grass/normal.png").c_str());
+    unsigned int grassMetallicMap = loadTexture(std::filesystem::path("resources/textures/pbr/grass/metallic.png").c_str());
+    unsigned int grassRoughnessMap = loadTexture(std::filesystem::path("resources/textures/pbr/grass/roughness.png").c_str());
+    unsigned int grassAOMap = loadTexture(std::filesystem::path("resources/textures/pbr/grass/ao.png").c_str());
 
     // plastic
-    unsigned int plasticAlbedoMap = loadTexture(FileSystem::getPath("resources/textures/pbr/plastic/albedo.png").c_str());
-    unsigned int plasticNormalMap = loadTexture(FileSystem::getPath("resources/textures/pbr/plastic/normal.png").c_str());
-    unsigned int plasticMetallicMap = loadTexture(FileSystem::getPath("resources/textures/pbr/plastic/metallic.png").c_str());
-    unsigned int plasticRoughnessMap = loadTexture(FileSystem::getPath("resources/textures/pbr/plastic/roughness.png").c_str());
-    unsigned int plasticAOMap = loadTexture(FileSystem::getPath("resources/textures/pbr/plastic/ao.png").c_str());
+    unsigned int plasticAlbedoMap = loadTexture(std::filesystem::path("resources/textures/pbr/plastic/albedo.png").c_str());
+    unsigned int plasticNormalMap = loadTexture(std::filesystem::path("resources/textures/pbr/plastic/normal.png").c_str());
+    unsigned int plasticMetallicMap = loadTexture(std::filesystem::path("resources/textures/pbr/plastic/metallic.png").c_str());
+    unsigned int plasticRoughnessMap = loadTexture(std::filesystem::path("resources/textures/pbr/plastic/roughness.png").c_str());
+    unsigned int plasticAOMap = loadTexture(std::filesystem::path("resources/textures/pbr/plastic/ao.png").c_str());
 
     // wall
-    unsigned int wallAlbedoMap = loadTexture(FileSystem::getPath("resources/textures/pbr/wall/albedo.png").c_str());
-    unsigned int wallNormalMap = loadTexture(FileSystem::getPath("resources/textures/pbr/wall/normal.png").c_str());
-    unsigned int wallMetallicMap = loadTexture(FileSystem::getPath("resources/textures/pbr/wall/metallic.png").c_str());
-    unsigned int wallRoughnessMap = loadTexture(FileSystem::getPath("resources/textures/pbr/wall/roughness.png").c_str());
-    unsigned int wallAOMap = loadTexture(FileSystem::getPath("resources/textures/pbr/wall/ao.png").c_str());
+    unsigned int wallAlbedoMap = loadTexture(std::filesystem::path("resources/textures/pbr/wall/albedo.png").c_str());
+    unsigned int wallNormalMap = loadTexture(std::filesystem::path("resources/textures/pbr/wall/normal.png").c_str());
+    unsigned int wallMetallicMap = loadTexture(std::filesystem::path("resources/textures/pbr/wall/metallic.png").c_str());
+    unsigned int wallRoughnessMap = loadTexture(std::filesystem::path("resources/textures/pbr/wall/roughness.png").c_str());
+    unsigned int wallAOMap = loadTexture(std::filesystem::path("resources/textures/pbr/wall/ao.png").c_str());
 
     // lights
     // ------
@@ -172,7 +177,7 @@ int main()
     // ---------------------------------
     stbi_set_flip_vertically_on_load(true);
     int width, height, nrComponents;
-    float *data = stbi_loadf(FileSystem::getPath("resources/textures/hdr/newport_loft.hdr").c_str(), &width, &height, &nrComponents, 0);
+    float *data = stbi_loadf(std::filesystem::path("resources/textures/hdr/newport_loft.hdr").c_str(), &width, &height, &nrComponents, 0);
     unsigned int hdrTexture;
     if (data)
     {
