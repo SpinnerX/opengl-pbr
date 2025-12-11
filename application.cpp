@@ -14,7 +14,7 @@
 #include "camera.hpp"
 #include "model.hpp"
 #include <filesystem>
-
+#include <memory>
 #include <iostream>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
